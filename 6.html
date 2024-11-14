@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Zeno's Paradox of Achilles and the Tortoise</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="400"></canvas>
+    <script>
+      // Get the canvas element
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Set the initial positions and speeds
+      let achillesX = 0;
+      let tortoiseX = 100;
+      const achillesSpeed = 10;
+      const tortoiseSpeed = 1;
+      const gap = 50;
+
+      // Animation loop
+      function animate() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Achilles and the Tortoise
+        ctx.beginPath();
+        ctx.rect(achillesX, 100, 50, 50);
+        ctx.rect(tortoiseX, 200, 50, 50);
+        ctx.fill();
+
+        // Update the positions
+        achillesX += achillesSpeed;
+        tortoiseX += tortoiseSpeed;
+
+        // Check if Achilles has caught up to the Tortoise
+        if (achillesX + 50 >= tortoiseX) {
+          // Achilles has caught up to the Tortoise
+          // Update the gap between them
+          gap /= 2;
+          achillesX = tortoiseX - gap;
+          tortoiseSpeed /= 2;
+          achillesSpeed /= 2;
+        }
+
+        // Request the next animation frame
+        requestAnimationFrame(animate);
+      }
+
+      // Start the animation
+      animate();
+    </script>
+  </body>
+</html>
